@@ -1,0 +1,88 @@
+# This file contains the fastlane.tools configuration
+
+# You can find the documentation at https://docs.fastlane.tools
+
+#
+
+# For a list of all available actions, check out
+
+#
+
+#     https://docs.fastlane.tools/actions
+
+#
+
+# For a list of all available plugins, check out
+
+#
+
+#     https://docs.fastlane.tools/plugins/available-plugins
+
+#
+
+
+
+
+# Uncomment the line if you want fastlane to automatically update itself
+
+# update_fastlane
+default_platform(:android)
+
+platform :android do
+
+desc "Rollout app to internal channel Usage:fastlane android rollout_internal aab:'path-to.aab' rollout:0.25"
+
+    lane :rollout_internal do |options|
+     supply(
+         track: ‘internal’,
+         aab: options[:aab],
+         rollout: options[:rollout], # 0.25
+         skip_upload_apk: false,
+         skip_upload_metadata: true,
+         skip_upload_images: true,
+         skip_upload_screenshots: true,
+         skip_upload_changelogs: true
+     )
+
+    end
+
+
+  desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-to-verson.aab' rollout:1"
+    lane :rollout_alpha do |options|
+     supply(
+             track: ‘alpha’,
+             aab: options[:aab],
+             rollout: options[:rollout], # 0.25
+             skip_upload_apk: false,
+             skip_upload_metadata: true,
+             skip_upload_images: true,
+             skip_upload_screenshots: true,
+             skip_upload_changelogs: true,
+    )
+
+    end
+
+
+
+
+# Production updates : enable after validations of internal and Alpha in pre-prod enviroment
+
+#     desc "Update rollout to Production - Usage:fastlane android rollout_prod aab:‘path-to-aab' rollout:0.25"
+#     lane :rollout_prod do |options|
+#      supply(
+#             track: 'production',
+#             rollout: options[:rollout], # 0.25
+#             aab: options[:aab],
+#             skip_upload_apk: true,
+#             skip_upload_metadata: true,
+#             skip_upload_images: true,
+#             skip_upload_screenshots: true,
+#             skip_upload_changelogs: true,
+#      )
+#     end
+
+
+
+
+
+end
