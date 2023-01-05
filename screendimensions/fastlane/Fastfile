@@ -23,7 +23,7 @@ platform :android do
 desc "Rollout app to internal channel Usage:fastlane android rollout_internal aab:'path-to.aab' rollout:0.25"
 
     lane :rollout_internal do |options|
-     supply(
+        supply(
          track: ‘internal’,
          aab: options[:aab],
          rollout: options[:rollout], # 0.25
@@ -38,7 +38,7 @@ desc "Rollout app to internal channel Usage:fastlane android rollout_internal aa
 
 desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-to-version.aab' rollout:1"
     lane :rollout_alpha do |options|
-     supply(
+        supply(
              track: ‘alpha’,
              aab: options[:aab],
              rollout: options[:rollout], # 0.25
@@ -51,7 +51,7 @@ desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'
     end
 desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-to-verson.aab' rollout:1"
     lane :update_rollout_alpha do |options|
-     supply(
+         supply(
              track: ‘alpha’,
              aab: options[:aab],
              rollout: options[:rollout], # 0.25
@@ -66,7 +66,7 @@ desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'
 #Production updates : enable after validations of internal and Alpha in pre-prod enviroment
  desc "Promote alpha app to Production - Usage:fastlane android promote_alpha_to_prod"
      lane :promote_alpha_to_prod do |options|
-     supply(
+        supply(
              track: 'alpha',
              version_code: options[:version_code],
 #             rollout: options[:rollout],
@@ -97,7 +97,7 @@ desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'
         end
 desc "Promote/Publish production app to Production - Usage:fastlane android promote_production_to_prod"
      lane :promote_production_to_prod do |options|
-     supply(
+        supply(
              track: 'production',
              version_code: options[:version_code],
 #            rollout: options[:rollout],
@@ -114,14 +114,14 @@ desc "Promote/Publish production app to Production - Usage:fastlane android prom
      end
 
 desc "Get VersionCodes  - Usage:fastlane android get_track_version_codes"
-          lane :get_track_version_codes do
+        lane :get_track_version_codes do
            google_play_track_version_codes(
                    track: ‘production’
           )
           end
 
 desc "Get Release Names  - Usage:fastlane android get_track_version_codes"
-           lane :get_track_release_names do
+         lane :get_track_release_names do
               google_play_track_release_names(
                     track: ‘production’
                    )
