@@ -17,6 +17,6 @@ class MainActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val width = displayMetrics.widthPixels.toString()
         val height = displayMetrics.heightPixels.toString()
-        textView.setText("Screen Pixel Dimensions:\n $width(Width) x $height(Height)");
+        textView.setText("Device Screen Dimensions:\n \n $width(Width) x $height(Height)");
     }
 }
