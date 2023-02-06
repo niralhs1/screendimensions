@@ -41,21 +41,26 @@ desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'
         supply(
              track: ‘alpha’,
              aab: options[:aab],
-             rollout: options[:rollout], # 0.25
+           #  rollout: options[:rollout], # 0.25
+             mapping: 'app/build/outputs/mapping/release/mapping.txt',
+           #  release_status: options[:release_status],
+             metadata_path: 'fastlane/metadata',
              skip_upload_aab: false,
-             skip_upload_metadata: true,
-             skip_upload_images: true,
-             skip_upload_screenshots: true,
-             skip_upload_changelogs: true
+             skip_upload_metadata: false,
+             skip_upload_images: false,
+             skip_upload_screenshots: false,
+             skip_upload_changelogs: false
     )
     end
-desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-to-verson.aab' rollout:1"
+desc "Roll out app to Alpha channel - Usage:fastlane android update_rollout_alpha aab:'path-to-verson.aab' rollout:1"
     lane :update_rollout_alpha do |options|
          supply(
              track: ‘alpha’,
-             aab: options[:aab],
-             rollout: options[:rollout], # 0.25
+             # aab: options[:aab],
+             release_status: options[:release_status],
+             #rollout: options[:rollout], # 0.25
              skip_upload_aab: true,
+             skip_upload_apk: true,
              skip_upload_metadata: true,
              skip_upload_images: true,
              skip_upload_screenshots: true,
@@ -64,15 +69,15 @@ desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'
     end
 
 #Production updates : enable after validations of internal and Alpha in pre-prod enviroment
- desc "Promote alpha app to Production - Usage:fastlane android promote_alpha_to_prod"
+desc "Promote alpha app to Production - Usage:fastlane android promote_alpha_to_prod track_promote_release_status:halted"
      lane :promote_alpha_to_prod do |options|
         supply(
              track: 'alpha',
              version_code: options[:version_code],
-#             rollout: options[:rollout],
+             rollout: options[:rollout],
 #            aab: options[:aab],
              track_promote_to: 'production',
-             track_promote_release_status: 'completed' ,
+             track_promote_release_status: options[:track_promote_release_status],
              skip_upload_aab: true,
              skip_upload_metadata: true,
              skip_upload_images: true,
@@ -82,31 +87,37 @@ desc "Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'
      end
 
     desc "Roll out app to Production channel - Usage:fastlane android rollout_production aab:'path-to-verson.aab' rollout:0.25"
-        lane :rollout_production do |options|
+    lane :rollout_production do |options|
          supply(
                  track: ‘production’,
                 # aab: options[:aab],
-                 version_code: options[:version_code],
+                version_code: options[:version_code],
+                 # version_name: options[:version_name],
                  rollout: options[:rollout], # 0.25
+                 release_status: options[:release_status],
+                 changes_not_sent_for_review: true,
                  skip_upload_aab: true,
-                 skip_upload_metadata: true,
-                 skip_upload_images: true,
+                 skip_upload_aab: true,
+                 skip_upload_metadata: false,
+                 skip_upload_images: false,
                  skip_upload_screenshots: true,
-                 skip_upload_changelogs: true
+                 skip_upload_changelogs: false
         )
         end
-desc "Promote/Publish production app to Production - Usage:fastlane android promote_production_to_prod"
-     lane :promote_production_to_prod do |options|
+desc "Promote/Publish production app to Production - Usage:fastlane android publish_to_track track:alpha version_code:4 version_name:v4 rollout:0.2 release_status:inProgress"
+     lane :publish_to_track do |options|
         supply(
-             track: 'production',
+             track: options[:track],
              version_code: options[:version_code],
-#            rollout: options[:rollout],
-#            aab: options[:aab],
-             track_promote_to: 'production',
-             track_promote_release_status: 'completed' ,
+#             version_name: options[:version_name],
+             rollout: options[:rollout],
+             release_status: options[:release_status],
+#             aab: options[:aab],
+#            track_promote_to: [options:track_promote_to],
+#            track_promote_release_status: options[:track_promote_release_status],
              skip_upload_aab: true,
              skip_upload_apk: true,
-             skip_upload_metadata: true,
+             skip_upload_metadata: false,
              skip_upload_images: true,
              skip_upload_screenshots: true,
              skip_upload_changelogs: true
@@ -114,16 +125,16 @@ desc "Promote/Publish production app to Production - Usage:fastlane android prom
      end
 
 desc "Get VersionCodes  - Usage:fastlane android get_track_version_codes"
-        lane :get_track_version_codes do
+        lane :get_track_version_codes do |options|
            google_play_track_version_codes(
-                   track: ‘production’
+                   track: options[:track]
           )
           end
 
 desc "Get Release Names  - Usage:fastlane android get_track_version_codes"
-         lane :get_track_release_names do
+         lane :get_track_release_names do |options|
               google_play_track_release_names(
-                    track: ‘production’
+                    track: options[:track]
                    )
            end
  end

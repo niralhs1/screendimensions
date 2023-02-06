@@ -29,7 +29,7 @@ Rollout app to internal channel Usage:fastlane android rollout_internal aab:'pat
 [bundle exec] fastlane android rollout_alpha
 ```
 
-Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-to-verson.aab' rollout:1
+Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-to-version.aab' rollout:1
 
 ### android update_rollout_alpha
 
@@ -37,7 +37,7 @@ Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-t
 [bundle exec] fastlane android update_rollout_alpha
 ```
 
-Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-to-verson.aab' rollout:1
+Roll out app to Alpha channel - Usage:fastlane android update_rollout_alpha aab:'path-to-verson.aab' rollout:1
 
 ### android promote_alpha_to_prod
 
@@ -45,7 +45,7 @@ Roll out app to Alpha channel - Usage:fastlane android rollout_alpha aab:'path-t
 [bundle exec] fastlane android promote_alpha_to_prod
 ```
 
-Promote alpha app to Production - Usage:fastlane android promote_alpha_to_prod
+Promote alpha app to Production - Usage:fastlane android promote_alpha_to_prod track_promote_release_status:halted
 
 ### android rollout_production
 
@@ -55,13 +55,13 @@ Promote alpha app to Production - Usage:fastlane android promote_alpha_to_prod
 
 Roll out app to Production channel - Usage:fastlane android rollout_production aab:'path-to-verson.aab' rollout:0.25
 
-### android promote_production_to_prod
+### android publish_to_track
 
 ```sh
-[bundle exec] fastlane android promote_production_to_prod
+[bundle exec] fastlane android publish_to_track
 ```
 
-Promote/Publish production app to Production - Usage:fastlane android promote_producion_to_prod
+Promote/Publish production app to Production - Usage:fastlane android publish_to_track track:alpha version_code:4 version_name:v4 rollout:0.2 release_status:inProgress
 
 ### android get_track_version_codes
 
